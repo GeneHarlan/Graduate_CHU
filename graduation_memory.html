@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>此去经年，山海再见</title>
+  <style>
+    :root {
+      --bg: #f7f2e9;
+      --paper: rgba(255, 252, 244, 0.82);
+      --ink: #2d2a26;
+      --muted: #81796c;
+      --accent: #9f6a3d;
+      --deep: #182235;
+      --line: rgba(45, 42, 38, 0.13);
+      --shadow: 0 22px 60px rgba(39, 31, 22, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Noto Serif SC", "Songti SC", "Microsoft YaHei", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(214, 180, 130, 0.26), transparent 32%),
+        radial-gradient(circle at 85% 16%, rgba(94, 123, 153, 0.16), transparent 30%),
+        linear-gradient(180deg, #f6efe3 0%, #f8f4ed 45%, #efe5d8 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.34;
+      z-index: -1;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .section {
+      min-height: 100vh;
+      padding: 86px 7vw;
+      position: relative;
+    }
+
+    .hero {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 780px;
+      height: 780px;
+      border: 1px solid rgba(159, 106, 61, 0.16);
+      border-radius: 50%;
+      transform: translateY(-30px);
+      animation: breathe 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: translateY(-30px) scale(0.98); opacity: 0.55; }
+      50% { transform: translateY(-30px) scale(1.04); opacity: 0.9; }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 920px;
+      padding: 52px 38px;
+      border-radius: 34px;
+      background: rgba(255, 252, 244, 0.58);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.66);
+    }
+
+    .eyebrow {
+      font-family: Georgia, serif;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(44px, 8vw, 92px);
+      letter-spacing: 0.08em;
+      font-weight: 500;
+      line-height: 1.12;
+      margin-bottom: 24px;
+    }
+
+    .subtitle {
+      font-size: clamp(18px, 2.4vw, 26px);
+      line-height: 1.9;
+      color: #5d5449;
+      margin-bottom: 36px;
+    }
+
+    .live-moment {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 9px;
+      padding: 18px 30px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 34px;
+    }
+
+    #moment, #endingMoment, #timelineMoment {
+      font-family: Georgia, "Times New Roman", serif;
+      letter-spacing: 0.12em;
+      font-size: 18px;
+      color: var(--deep);
+    }
+
+    .moment-note {
+      color: var(--muted);
+      font-size: 15px;
+      letter-spacing: 0.12em;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border: 1px solid rgba(159, 106, 61, 0.42);
+      border-radius: 999px;
+      color: #fff;
+      background: linear-gradient(135deg, #9f6a3d, #6e4a31);
+      box-shadow: 0 14px 28px rgba(111, 72, 41, 0.22);
+      transition: transform .25s ease, box-shadow .25s ease;
+      font-size: 16px;
+      letter-spacing: 0.12em;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 36px rgba(111, 72, 41, 0.28);
+    }
+
+    .section-title {
+      max-width: 980px;
+      margin: 0 auto 52px;
+    }
+
+    .section-title .tag {
+      color: var(--accent);
+      letter-spacing: 0.18em;
+      font-size: 13px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      font-family: Georgia, serif;
+    }
+
+    h2 {
+      font-size: clamp(32px, 4.6vw, 58px);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      margin-bottom: 18px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      line-height: 2;
+      font-size: 17px;
+    }
+
+    .timeline {
+      max-width: 980px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 124px;
+      width: 1px;
+      background: var(--line);
+    }
+
+    .time-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 34px;
+      margin-bottom: 34px;
+      align-items: start;
+    }
+
+    .year {
+      font-family: Georgia, serif;
+      color: var(--accent);
+      font-size: 25px;
+      text-align: right;
+      padding-right: 36px;
+      position: relative;
+    }
+
+    .year::after {
+      content: "";
+      position: absolute;
+      right: 29px;
+      top: 12px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 8px rgba(159, 106, 61, 0.12);
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid rgba(255,255,255,0.62);
+      box-shadow: var(--shadow);
+      border-radius: 26px;
+      padding: 28px;
+      backdrop-filter: blur(14px);
+    }
+
+    .card h3 {
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    .card p {
+      color: #62594f;
+      line-height: 2;
+      font-size: 16px;
+    }
+
+    .gallery-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 22px;
+    }
+
+    .photo-card {
+      grid-column: span 4;
+      min-height: 330px;
+      background: #fffaf0;
+      padding: 14px 14px 72px;
+      border-radius: 8px;
+      box-shadow: 0 20px 44px rgba(60, 45, 30, 0.16);
+      transform: rotate(var(--r));
+      transition: transform .35s ease, box-shadow .35s ease;
+      position: relative;
+    }
+
+    .photo-card:nth-child(2) { grid-column: span 5; }
+    .photo-card:nth-child(3) { grid-column: span 3; }
+    .photo-card:nth-child(4) { grid-column: span 5; }
+    .photo-card:nth-child(5) { grid-column: span 3; }
+    .photo-card:nth-child(6) { grid-column: span 4; }
+
+    .photo-card:hover {
+      transform: rotate(0deg) translateY(-8px) scale(1.02);
+      box-shadow: 0 28px 58px rgba(60, 45, 30, 0.22);
+      z-index: 3;
+    }
+
+    .photo-placeholder {
+      height: 235px;
+      border-radius: 4px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: rgba(255,255,255,0.82);
+      background:
+        linear-gradient(135deg, rgba(24,34,53,0.84), rgba(159,106,61,0.62)),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0 8px, transparent 8px 16px);
+      letter-spacing: 0.08em;
+      line-height: 1.8;
+      overflow: hidden;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 235px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      filter: saturate(0.88) contrast(0.98);
+    }
+
+    .caption {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      color: #52483e;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .music-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .record {
+      min-height: 380px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #1a2336, #3a2f2a);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .disc {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, #f7f2e9 0 9%, #1b1b1b 10% 18%, #393939 19% 20%, #111 21% 100%);
+      box-shadow: inset 0 0 0 10px rgba(255,255,255,0.04), 0 16px 40px rgba(0,0,0,0.32);
+      animation: spin 18s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .music-card audio {
+      width: 100%;
+      margin: 22px 0 12px;
+    }
+
+    .quote {
+      font-size: 24px;
+      line-height: 2;
+      color: var(--deep);
+    }
+
+    .note {
+      margin-top: 18px;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .letters {
+      max-width: 980px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .letter-card {
+      min-height: 260px;
+      background: rgba(255, 252, 244, 0.78);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.64);
+      position: relative;
+    }
+
+    .letter-card::before {
+      content: "";
+      position: absolute;
+      top: 22px;
+      right: 24px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(159,106,61,0.35);
+      border-radius: 50%;
+    }
+
+    .letter-card h3 {
+      font-weight: 500;
+      font-size: 22px;
+      margin-bottom: 18px;
+      color: var(--accent);
+    }
+
+    .letter-card p {
+      color: #62594f;
+      line-height: 2;
+    }
+
+    .ending {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background:
+        linear-gradient(rgba(24, 34, 53, 0.78), rgba(24, 34, 53, 0.78)),
+        radial-gradient(circle at 50% 0%, rgba(159, 106, 61, 0.42), transparent 42%);
+      color: #fff;
+    }
+
+    .ending .panel {
+      max-width: 920px;
+      padding: 54px 36px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 36px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .ending h2 {
+      color: #fff;
+      margin: 20px 0 26px;
+    }
+
+    .ending p {
+      color: rgba(255,255,255,0.82);
+      font-size: 19px;
+      line-height: 2.1;
+    }
+
+    .ending #endingMoment {
+      color: rgba(255,255,255,0.86);
+      font-size: 19px;
+    }
+
+    .footer-small {
+      margin-top: 36px;
+      color: rgba(255,255,255,0.54);
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp .9s ease forwards;
+    }
+
+    .delay-1 { animation-delay: .16s; }
+    .delay-2 { animation-delay: .32s; }
+    .delay-3 { animation-delay: .48s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 860px) {
+      .section { padding: 70px 22px; }
+      .timeline::before { left: 20px; }
+      .time-item { grid-template-columns: 1fr; gap: 12px; padding-left: 42px; }
+      .year { text-align: left; padding-right: 0; font-size: 22px; }
+      .year::after { left: -27px; right: auto; }
+      .gallery-grid { display: block; }
+      .photo-card { margin-bottom: 24px; min-height: 310px; transform: none; }
+      .music-wrap { grid-template-columns: 1fr; }
+      .letters { grid-template-columns: 1fr; }
+      .hero-inner { padding: 42px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="section hero" id="top">
+    <div class="hero-inner">
+      <div class="eyebrow fade-up">Memory Capsule</div>
+      <h1 class="fade-up delay-1">此去经年<br>山海再见</h1>
+      <p class="subtitle fade-up delay-2">毕业后的第 X 年，我们再次打开那个夏天。</p>
+      <div class="live-moment fade-up delay-3" aria-label="记忆开启时刻">
+        <div id="moment">---- / -- / -- · --:--:--</div>
+        <div class="moment-note">回忆在这一刻，被轻轻翻开</div>
+      </div>
+      <br />
+      <a href="#timeline" class="btn fade-up delay-3">打开回忆</a>
+    </div>
+  </section>
+
+  <section class="section" id="timeline">
+    <div class="section-title">
+      <div class="tag">Chapter 01</div>
+      <h2>时间把我们带到这里</h2>
+      <p>从初见到同行，从毕业到再回首。那些看似普通的日子，后来都变成了最舍不得删掉的片段。</p>
+    </div>
+
+    <div class="timeline">
+      <div class="time-item">
+        <div class="year">2022</div>
+        <div class="card">
+          <h3>初见</h3>
+          <p>第一次走进校园，第一次认识新的朋友。那时候一切都还很新，连风里都带着开始的味道。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year">2023</div>
+        <div class="card">
+          <h3>同行</h3>
+          <p>课堂、社团、比赛、夜路和饭局。我们在一次次并肩里，慢慢成为彼此青春里的熟人。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year">2024</div>
+        <div class="card">
+          <h3>成长</h3>
+          <p>有过焦虑，也有过不甘；有过熬夜赶工，也有过突然明白自己的瞬间。那些经历，把我们推向更远的地方。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year">2025</div>
+        <div class="card">
+          <h3>毕业</h3>
+          <p>学位服、合影、聚餐、告别。我们在盛夏里拥抱，然后把没有说完的话留给以后。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year"><span id="timelineMoment">---- / -- / --</span></div>
+        <div class="card">
+          <h3>再回首</h3>
+          <p>多年后的这一刻，我们重新翻开这段回忆。时间仍在向前，而那个夏天，一直留在这里。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="gallery">
+    <div class="section-title">
+      <div class="tag">Chapter 02</div>
+      <h2>照片里的夏天</h2>
+      <p>把下面的占位图替换成你的照片即可。建议使用毕业典礼、校园、朋友合影、聚餐、旅行或某个难忘瞬间。</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="photo-card" style="--r:-2.2deg">
+        <div class="photo-placeholder">替换为照片 01<br>毕业典礼 / 合影</div>
+        <div class="caption">那天的风很轻，我们笑得像真的不会分开。</div>
+      </div>
+      <div class="photo-card" style="--r:1.4deg">
+        <div class="photo-placeholder">替换为照片 02<br>校园 / 教学楼</div>
+        <div class="caption">后来走过很多路，还是会想起这条熟悉的路。</div>
+      </div>
+      <div class="photo-card" style="--r:2.4deg">
+        <div class="photo-placeholder">替换为照片 03<br>宿舍 / 食堂</div>
+        <div class="caption">普通的一天，后来也变成了很珍贵的一天。</div>
+      </div>
+      <div class="photo-card" style="--r:-1.2deg">
+        <div class="photo-placeholder">替换为照片 04<br>朋友 / 聚餐</div>
+        <div class="caption">有些人坐在一起，什么都不说，也觉得热闹。</div>
+      </div>
+      <div class="photo-card" style="--r:2deg">
+        <div class="photo-placeholder">替换为照片 05<br>活动 / 比赛</div>
+        <div class="caption">一起努力过的日子，后来都成了底气。</div>
+      </div>
+      <div class="photo-card" style="--r:-2.6deg">
+        <div class="photo-placeholder">替换为照片 06<br>告别 / 远方</div>
+        <div class="caption">我们各自奔赴山海，也把彼此留在青春里。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="music">
+    <div class="section-title">
+      <div class="tag">Chapter 03</div>
+      <h2>那首歌响起的时候</h2>
+      <p>音乐不用太多，一首刚好。它可以是毕业季的歌，也可以是一首只有你们懂的歌。</p>
+    </div>
+
+    <div class="music-wrap">
+      <div class="record">
+        <div class="disc"></div>
+      </div>
+      <div class="card music-card">
+        <h3>把音乐放在这里</h3>
+        <p class="quote">“有些旋律一响起，就会把人带回那个夏天。”</p>
+        <p class="note">把下面 audio 标签中的 <strong>music/your-song.mp3</strong> 替换成你的音乐文件路径。浏览器通常需要用户点击后才能播放音乐，所以建议保留手动播放按钮。</p>
+        <audio controls preload="metadata">
+          <source src="music/your-song.mp3" type="audio/mpeg" />
+          你的浏览器不支持音频播放。
+        </audio>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="letters">
+    <div class="section-title">
+      <div class="tag">Chapter 04</div>
+      <h2>写给几年后的我们</h2>
+      <p>这里可以放朋友留言、给过去自己的信、给未来的祝福，也可以写下那些当时没来得及说出口的话。</p>
+    </div>
+
+    <div class="letters">
+      <div class="letter-card">
+        <h3>给那年夏天</h3>
+        <p>谢谢你让我们相遇，也谢谢你把那些热烈、笨拙、真诚和不舍，都留在了最好的年纪。</p>
+      </div>
+      <div class="letter-card">
+        <h3>给同行的人</h3>
+        <p>有些陪伴不一定每天联系，但只要想起，心里就会亮一下。愿你一路顺遂，仍有热爱。</p>
+      </div>
+      <div class="letter-card">
+        <h3>给未来的自己</h3>
+        <p>愿你走得很远，也别忘了来时的路。愿你见过山海之后，仍记得那个意气风发的自己。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ending" id="ending">
+    <div class="panel">
+      <div id="endingMoment">---- / -- / -- · --:--:--</div>
+      <h2>青春未完待续</h2>
+      <p>
+        时间仍在向前，<br />
+        而那个夏天，被我们留在这里。<br />
+        愿此去经年，山海再见；<br />
+        愿来日相逢，我们仍是少年。
+      </p>
+      <div class="footer-small">Memory never graduates</div>
+    </div>
+  </section>
+
+  <script>
+    function pad(num) {
+      return String(num).padStart(2, '0');
+    }
+
+    function formatMoment(date, withSeconds = true) {
+      const y = date.getFullYear();
+      const m = pad(date.getMonth() + 1);
+      const d = pad(date.getDate());
+      const h = pad(date.getHours());
+      const min = pad(date.getMinutes());
+      const s = pad(date.getSeconds());
+      return withSeconds
+        ? `${y} / ${m} / ${d} · ${h}:${min}:${s}`
+        : `${y} / ${m} / ${d} · ${h}:${min}`;
+    }
+
+    function updateMoment() {
+      const now = new Date();
+      document.getElementById('moment').textContent = formatMoment(now, true);
+      document.getElementById('endingMoment').textContent = formatMoment(now, true);
+      document.getElementById('timelineMoment').textContent = formatMoment(now, false);
+    }
+
+    updateMoment();
+    setInterval(updateMoment, 1000);
+  </script>
+</body>
+</html>
