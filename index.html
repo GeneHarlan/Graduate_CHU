@@ -484,7 +484,7 @@
     <div class="hero-inner">
       <div class="eyebrow fade-up">Memory Capsule</div>
       <h1 class="fade-up delay-1">此去经年<br>山海再见</h1>
-      <p class="subtitle fade-up delay-2">毕业后的第 X 年，我们再次打开那个夏天。</p>
+      <p class="subtitle fade-up delay-2">毕业后的第 <span id="yearsSinceGraduation">X</span> 年，我们再次打开那个夏天。</p>
       <div class="live-moment fade-up delay-3" aria-label="记忆开启时刻">
         <div id="moment">---- / -- / -- · --:--:--</div>
         <div class="moment-note">回忆在这一刻，被轻轻翻开</div>
@@ -636,31 +636,58 @@
   </section>
 
   <script>
-    function pad(num) {
-      return String(num).padStart(2, '0');
+  const graduationDate = new Date(2026, 5, 24);
+  // 注意：JS 里月份从 0 开始，所以 5 表示 6 月
+
+  function pad(num) {
+    return String(num).padStart(2, '0');
+  }
+
+  function formatMoment(date, withSeconds = true) {
+    const y = date.getFullYear();
+    const m = pad(date.getMonth() + 1);
+    const d = pad(date.getDate());
+    const h = pad(date.getHours());
+    const min = pad(date.getMinutes());
+    const s = pad(date.getSeconds());
+
+    return withSeconds
+      ? `${y} / ${m} / ${d} · ${h}:${min}:${s}`
+      : `${y} / ${m} / ${d} · ${h}:${min}`;
+  }
+
+  function getYearsSinceGraduation(now) {
+    let years = now.getFullYear() - graduationDate.getFullYear();
+
+    const hasPassedThisYear =
+      now.getMonth() > graduationDate.getMonth() ||
+      (
+        now.getMonth() === graduationDate.getMonth() &&
+        now.getDate() >= graduationDate.getDate()
+      );
+
+    if (!hasPassedThisYear) {
+      years -= 1;
     }
 
-    function formatMoment(date, withSeconds = true) {
-      const y = date.getFullYear();
-      const m = pad(date.getMonth() + 1);
-      const d = pad(date.getDate());
-      const h = pad(date.getHours());
-      const min = pad(date.getMinutes());
-      const s = pad(date.getSeconds());
-      return withSeconds
-        ? `${y} / ${m} / ${d} · ${h}:${min}:${s}`
-        : `${y} / ${m} / ${d} · ${h}:${min}`;
-    }
+    return Math.max(years, 0) + 1;
+  }
 
-    function updateMoment() {
-      const now = new Date();
-      document.getElementById('moment').textContent = formatMoment(now, true);
-      document.getElementById('endingMoment').textContent = formatMoment(now, true);
-      document.getElementById('timelineMoment').textContent = formatMoment(now, false);
-    }
+  function updateMoment() {
+    const now = new Date();
 
-    updateMoment();
-    setInterval(updateMoment, 1000);
-  </script>
+    document.getElementById('moment').textContent = formatMoment(now, true);
+    document.getElementById('endingMoment').textContent = formatMoment(now, true);
+    document.getElementById('timelineMoment').textContent = formatMoment(now, false);
+
+    const displayYear = getYearsSinceGraduation(now);
+
+    document.getElementById('graduationSubtitle').textContent =
+      `毕业后的第 ${displayYear} 年，我们再次打开那个夏天。`;
+  }
+
+  updateMoment();
+  setInterval(updateMoment, 1000);
+</script>
 </body>
 </html>
