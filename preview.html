@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>写给那几年一起同行的你们｜此去经年，山海再见</title>
+  <style>
+    :root {
+      --bg: #f7f2e9;
+      --paper: rgba(255, 252, 244, 0.82);
+      --ink: #2d2a26;
+      --muted: #81796c;
+      --accent: #9f6a3d;
+      --deep: #182235;
+      --line: rgba(45, 42, 38, 0.13);
+      --shadow: 0 22px 60px rgba(39, 31, 22, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Noto Serif SC", "Songti SC", "Microsoft YaHei", serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(214, 180, 130, 0.26), transparent 32%),
+        radial-gradient(circle at 85% 16%, rgba(94, 123, 153, 0.16), transparent 30%),
+        linear-gradient(180deg, #f6efe3 0%, #f8f4ed 45%, #efe5d8 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px);
+      background-size: 42px 42px;
+      opacity: 0.34;
+      z-index: -1;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .section {
+      min-height: 100vh;
+      padding: 86px 7vw;
+      position: relative;
+    }
+
+    .hero {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 780px;
+      height: 780px;
+      border: 1px solid rgba(159, 106, 61, 0.16);
+      border-radius: 50%;
+      transform: translateY(-30px);
+      animation: breathe 8s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: translateY(-30px) scale(0.98); opacity: 0.55; }
+      50% { transform: translateY(-30px) scale(1.04); opacity: 0.9; }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 920px;
+      padding: 52px 38px;
+      border-radius: 34px;
+      background: rgba(255, 252, 244, 0.58);
+      backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.66);
+    }
+
+    .eyebrow {
+      font-family: Georgia, serif;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(44px, 8vw, 92px);
+      letter-spacing: 0.08em;
+      font-weight: 500;
+      line-height: 1.12;
+      margin-bottom: 24px;
+    }
+
+    .subtitle {
+      font-size: clamp(18px, 2.4vw, 26px);
+      line-height: 1.9;
+      color: #5d5449;
+      margin-bottom: 36px;
+    }
+
+    .live-moment {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 9px;
+      padding: 18px 30px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 34px;
+    }
+
+    #moment, #endingMoment, #timelineMoment {
+      font-family: Georgia, "Times New Roman", serif;
+      letter-spacing: 0.12em;
+      font-size: 18px;
+      color: var(--deep);
+    }
+
+    .moment-note {
+      color: var(--muted);
+      font-size: 15px;
+      letter-spacing: 0.12em;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      border: 1px solid rgba(159, 106, 61, 0.42);
+      border-radius: 999px;
+      color: #fff;
+      background: linear-gradient(135deg, #9f6a3d, #6e4a31);
+      box-shadow: 0 14px 28px rgba(111, 72, 41, 0.22);
+      transition: transform .25s ease, box-shadow .25s ease;
+      font-size: 16px;
+      letter-spacing: 0.12em;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 36px rgba(111, 72, 41, 0.28);
+    }
+
+    .section-title {
+      max-width: 980px;
+      margin: 0 auto 52px;
+    }
+
+    .section-title .tag {
+      color: var(--accent);
+      letter-spacing: 0.18em;
+      font-size: 13px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      font-family: Georgia, serif;
+    }
+
+    h2 {
+      font-size: clamp(32px, 4.6vw, 58px);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      margin-bottom: 18px;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      line-height: 2;
+      font-size: 17px;
+    }
+
+    .timeline {
+      max-width: 980px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 124px;
+      width: 1px;
+      background: var(--line);
+    }
+
+    .time-item {
+      display: grid;
+      grid-template-columns: 160px 1fr;
+      gap: 34px;
+      margin-bottom: 34px;
+      align-items: start;
+    }
+
+    .year {
+      font-family: Georgia, serif;
+      color: var(--accent);
+      font-size: 25px;
+      text-align: right;
+      padding-right: 36px;
+      position: relative;
+    }
+
+    .year::after {
+      content: "";
+      position: absolute;
+      right: 29px;
+      top: 12px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 8px rgba(159, 106, 61, 0.12);
+    }
+
+    .card {
+      background: var(--paper);
+      border: 1px solid rgba(255,255,255,0.62);
+      box-shadow: var(--shadow);
+      border-radius: 26px;
+      padding: 28px;
+      backdrop-filter: blur(14px);
+    }
+
+    .card h3 {
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    .card p {
+      color: #62594f;
+      line-height: 2;
+      font-size: 16px;
+    }
+
+    .gallery-grid {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 22px;
+    }
+
+    .photo-card {
+      grid-column: span 4;
+      min-height: 330px;
+      background: #fffaf0;
+      padding: 14px 14px 72px;
+      border-radius: 8px;
+      box-shadow: 0 20px 44px rgba(60, 45, 30, 0.16);
+      transform: rotate(var(--r));
+      transition: transform .35s ease, box-shadow .35s ease;
+      position: relative;
+    }
+
+    .photo-card:nth-child(2) { grid-column: span 5; }
+    .photo-card:nth-child(3) { grid-column: span 3; }
+    .photo-card:nth-child(4) { grid-column: span 5; }
+    .photo-card:nth-child(5) { grid-column: span 3; }
+    .photo-card:nth-child(6) { grid-column: span 4; }
+
+    .photo-card:hover {
+      transform: rotate(0deg) translateY(-8px) scale(1.02);
+      box-shadow: 0 28px 58px rgba(60, 45, 30, 0.22);
+      z-index: 3;
+    }
+
+    .photo-placeholder {
+      height: 235px;
+      border-radius: 4px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: rgba(255,255,255,0.82);
+      background:
+        linear-gradient(135deg, rgba(24,34,53,0.84), rgba(159,106,61,0.62)),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.08) 0 8px, transparent 8px 16px);
+      letter-spacing: 0.08em;
+      line-height: 1.8;
+      overflow: hidden;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 235px;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      filter: saturate(0.88) contrast(0.98);
+    }
+
+    .caption {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      color: #52483e;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .music-wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .record {
+      min-height: 380px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #1a2336, #3a2f2a);
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .disc {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, #f7f2e9 0 9%, #1b1b1b 10% 18%, #393939 19% 20%, #111 21% 100%);
+      box-shadow: inset 0 0 0 10px rgba(255,255,255,0.04), 0 16px 40px rgba(0,0,0,0.32);
+      animation: spin 18s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .music-card audio {
+      width: 100%;
+      margin: 22px 0 12px;
+    }
+
+    .quote {
+      font-size: 24px;
+      line-height: 2;
+      color: var(--deep);
+    }
+
+    .note {
+      margin-top: 18px;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    .letters {
+      max-width: 980px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .letter-card {
+      min-height: 260px;
+      background: rgba(255, 252, 244, 0.78);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.64);
+      position: relative;
+    }
+
+    .letter-card::before {
+      content: "";
+      position: absolute;
+      top: 22px;
+      right: 24px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(159,106,61,0.35);
+      border-radius: 50%;
+    }
+
+    .letter-card h3 {
+      font-weight: 500;
+      font-size: 22px;
+      margin-bottom: 18px;
+      color: var(--accent);
+    }
+
+    .letter-card p {
+      color: #62594f;
+      line-height: 2;
+    }
+
+    .ending {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      background:
+        linear-gradient(rgba(24, 34, 53, 0.78), rgba(24, 34, 53, 0.78)),
+        radial-gradient(circle at 50% 0%, rgba(159, 106, 61, 0.42), transparent 42%);
+      color: #fff;
+    }
+
+    .ending .panel {
+      max-width: 920px;
+      padding: 54px 36px;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 36px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+    }
+
+    .ending h2 {
+      color: #fff;
+      margin: 20px 0 26px;
+    }
+
+    .ending p {
+      color: rgba(255,255,255,0.82);
+      font-size: 19px;
+      line-height: 2.1;
+    }
+
+    .ending #endingMoment {
+      color: rgba(255,255,255,0.86);
+      font-size: 19px;
+    }
+
+    .footer-small {
+      margin-top: 36px;
+      color: rgba(255,255,255,0.54);
+      letter-spacing: 0.16em;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp .9s ease forwards;
+    }
+
+    .delay-1 { animation-delay: .16s; }
+    .delay-2 { animation-delay: .32s; }
+    .delay-3 { animation-delay: .48s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 860px) {
+      .section { padding: 70px 22px; }
+      .timeline::before { left: 20px; }
+      .time-item { grid-template-columns: 1fr; gap: 12px; padding-left: 42px; }
+      .year { text-align: left; padding-right: 0; font-size: 22px; }
+      .year::after { left: -27px; right: auto; }
+      .gallery-grid { display: block; }
+      .photo-card { margin-bottom: 24px; min-height: 310px; transform: none; }
+      .music-wrap { grid-template-columns: 1fr; }
+      .letters { grid-template-columns: 1fr; }
+      .hero-inner { padding: 42px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <section class="section hero" id="top">
+    <div class="hero-inner">
+      <div class="eyebrow fade-up">写给那几年一起同行的你们</div>
+      <h1 class="fade-up delay-1">此去经年<br>山海再见</h1>
+      <p class="subtitle fade-up delay-2" id="graduationSubtitle"></p>
+      <div class="live-moment fade-up delay-3" aria-label="记忆开启时刻">
+        <div id="moment">---- / -- / -- · --:--:--</div>
+        <div class="moment-note">这份藏在纪念品里的回忆，被轻轻翻开</div>
+      </div>
+      <br />
+      <a href="#timeline" class="btn fade-up delay-3">打开回忆</a>
+    </div>
+  </section>
+
+  <section class="section" id="timeline">
+    <div class="section-title">
+      <div class="tag">Chapter 01</div>
+      <h2>我们的这些年</h2>
+      <p>这不是一份面向所有人的毕业网页，而是我想留给你们的一封长信。我们因为心协相识，却不只停留在心协。它记录的不是轰轰烈烈的大事，而是我们在一次次招新、例会、活动、交接、团建和日常相处里慢慢靠近的日子。</p>
+    </div>
+
+    <div class="timeline">
+      <div class="time-item">
+        <div class="year">2022</div>
+        <div class="card">
+          <h3>我走进心协</h3>
+          <p>那一年，我还是心协的一名部员。很多流程、活动和传统，对我来说都还是新的。也是从那时开始，我和这个社团之间，有了一段后来越来越深的联系。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year">2023 · 06</div>
+        <div class="card">
+          <h3>从部员到部长</h3>
+          <p>大一结束后，我成为了部长。身份变了，责任也变了。后来到了秋天，我以部长的身份参与招新，而你们，就是在那一年走进心协、走到我面前的人。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year">2023 · 秋</div>
+        <div class="card">
+          <h3>我把你们招进来</h3>
+          <p>那时候，我们还没有那么熟。你们是新部员，我是部长，更多时候只是工作上的联系。但很多关系就是这样开始的：先是一次通知、一次活动、一次任务，后来慢慢变成信任和默契。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year">2024 · 06</div>
+        <div class="card">
+          <h3>我成为主席，你们成为部长</h3>
+          <p>这一年，我们真正有了更多交集。我作为主席和你们直接对接工作，你们也开始作为部长承担自己的职责。我们在安排、沟通、推进和收尾里慢慢熟悉，也在一次次共同处理问题中建立起更深的感情。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year">2024 - 2025</div>
+        <div class="card">
+          <h3>团建迟到了，感情没有</h3>
+          <p>那一年我忙于学业，原本说好的团建一拖再拖，直到 2025 年 5 月才真正办成。可到那个时候，团建本身其实已经没有那么重要了。因为在日常工作里，我们早就已经熟了，也早就一起走过了很多。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year">2025 · 06</div>
+        <div class="card">
+          <h3>交接与告别</h3>
+          <p>我卸下主席的职务，把主席的位置传给刘越，也看着你们之中好几个人继续接过新的责任。当然，也有几个人选择不再留下来。那时我给新主席写了一封交接信，写下自己三年的经历，也把祝福和鼓励留给后来的人。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year">2025 · 09</div>
+        <div class="card">
+          <h3>百团大战，匆匆一面</h3>
+          <p>社团招新的那一天，我因为要去研究生学校面试，只能前一天去现场看一眼就离开。那一刻我其实很清楚：我已经不再是站在最前面安排一切的人了，但看到你们还在那里，我又觉得很安心。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year">2026 · 05</div>
+        <div class="card">
+          <h3>525，拍立得里的我们</h3>
+          <p>525 活动时，我又和你们一起参加，还拍下了一张拍立得。本来想多拍几张作纪念，可第二天要答辩，学士服也还没到，最后只留下了那一张。现在想想，正因为不够完整，它反而更像真实的青春。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year">2026 · 06</div>
+        <div class="card">
+          <h3>这一次，是真的毕业了</h3>
+          <p>六月我回到学校参加毕业典礼，拍了很多照片，也把纪念品交给你们。这个 HTML 文件就藏在那份纪念品里。它不是正式的总结，也不是漂亮的客套话，只是我想在离开前，把我们这几年认真地存起来。</p>
+        </div>
+      </div>
+      <div class="time-item">
+        <div class="year"><span id="timelineMoment">---- / -- / --</span></div>
+        <div class="card">
+          <h3>再翻开</h3>
+          <p>多年后的某一刻，当你们再次打开它，也许会想起我们曾经一起守过的活动、赶过的通知、拍过的照片，以及那些没有被郑重说出口、却一直真实存在的陪伴。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="gallery">
+    <div class="section-title">
+      <div class="tag">Chapter 02</div>
+      <h2>被留下的瞬间</h2>
+      <p>下面保留了照片位置。建议放：2025 年 5 月团建、2025 年 6 月交接、2025 年 9 月百团大战、2026 年 5 月 525 拍立得、2026 年 6 月毕业典礼，以及你们最自然的一张合照。</p>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="photo-card" style="--r:-2.2deg">
+        <div class="photo-placeholder">替换为照片 01<br>2025.05 团建</div>
+        <div class="caption">团建来得有点晚，但我们早就在日常工作里熟悉了彼此。</div>
+      </div>
+      <div class="photo-card" style="--r:1.4deg">
+        <div class="photo-placeholder">替换为照片 02<br>2025.06 换届 / 交接</div>
+        <div class="caption">有些责任交出去的时候，心里是不舍，也是放心。</div>
+      </div>
+      <div class="photo-card" style="--r:2.4deg">
+        <div class="photo-placeholder">替换为照片 03<br>2025.09 百团大战</div>
+        <div class="caption">我只是匆匆看了一眼，却知道心协会被你们继续好好带下去。</div>
+      </div>
+      <div class="photo-card" style="--r:-1.2deg">
+        <div class="photo-placeholder">替换为照片 04<br>2026.05 525 拍立得</div>
+        <div class="caption">那张没有来得及多拍几次的照片，后来成了很珍贵的纪念。</div>
+      </div>
+      <div class="photo-card" style="--r:2deg">
+        <div class="photo-placeholder">替换为照片 05<br>2026.06 毕业典礼</div>
+        <div class="caption">这一次穿上学士服，才真正意识到：我要毕业了。</div>
+      </div>
+      <div class="photo-card" style="--r:-2.6deg">
+        <div class="photo-placeholder">替换为照片 06<br>你们 / 我们</div>
+        <div class="caption">工作会结束，职位会交接，但一起走过的那段路不会消失。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="music">
+    <div class="section-title">
+      <div class="tag">Chapter 03</div>
+      <h2>留一首歌给这几年</h2>
+      <p>音乐不用太多，一首刚好。它可以是毕业季的歌，也可以是一首只有我们听到时才会会心一笑的歌。</p>
+    </div>
+
+    <div class="music-wrap">
+      <div class="record">
+        <div class="disc"></div>
+      </div>
+      <div class="card music-card">
+        <h3>把音乐放在这里</h3>
+        <p class="quote">“有些旋律一响起，就会把人带回那间办公室、那场活动、那群人身边。”</p>
+        <p class="note">把下面 audio 标签中的 <strong>music/your-song.mp3</strong> 替换成你的音乐文件路径。浏览器通常需要用户点击后才能播放音乐，所以建议保留手动播放按钮。</p>
+        <audio controls preload="metadata">
+          <source src="music/your-song.mp3" type="audio/mpeg" />
+          你的浏览器不支持音频播放。
+        </audio>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="letters">
+    <div class="section-title">
+      <div class="tag">Chapter 04</div>
+      <h2>写给那几年一起同行的你们</h2>
+      <p>这些话不一定适合在正式场合说，但很适合藏在这份纪念品里。等你们某一天再打开，也许会比当时更懂。身份会更替，职位会卸下，但一起走过的那段路不会失效。</p>
+    </div>
+
+    <div class="letters">
+      <div class="letter-card">
+        <h3>给部长们</h3>
+        <p>谢谢你们在那一年接过自己的职责，也谢谢你们愿意和我一起把一件件具体又琐碎的事情做好。很多时候，真正让社团运转下去的，不是口号，而是你们一次次认真回复、到场、协调和收尾。</p>
+      </div>
+      <div class="letter-card">
+        <h3>给留下来的人</h3>
+        <p>如果你们选择继续留下，希望你们既能把好的东西传下去，也能勇敢改掉不合适的地方。不要只复制上一届，也不要害怕走出自己的样子。</p>
+      </div>
+      <div class="letter-card">
+        <h3>给准备离开的人</h3>
+        <p>没有继续留任，也不代表这段经历就结束了。你们曾经认真参与过、付出过、陪伴过，这些就已经足够珍贵。愿你们以后走到哪里，都记得自己曾经也照亮过一段共同的时光。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="gift">
+    <div class="section-title">
+      <div class="tag">Chapter 05</div>
+      <h2>这份纪念品里，藏着我的告别</h2>
+      <p>我没有把它做成一份很正式的材料，因为我们之间最珍贵的部分，本来也不是正式文件能写完的。它更像一个小小的时间胶囊：把 2022 到 2026 的相识、同行、交接与毕业，把我从部员到主席再到毕业生的路，也把你们陪我走过的那一段，都收在里面。</p>
+    </div>
+
+    <div class="card" style="max-width: 980px; margin: 0 auto;">
+      <h3>如果很多年后你们再次打开</h3>
+      <p>
+        希望你们不要只想起任务和活动，也能想起那些一起开会、一起赶ddl、一起讨论细节、一起吐槽又一起解决问题的时刻。<br />
+        我们的关系不是从一次隆重的团建开始的，而是在无数个普通工作日里慢慢长出来的。<br />
+        所以，这份网页也想把那些普通日子认真保存下来。
+      </p>
+    </div>
+  </section>
+
+  <section class="section ending" id="ending">
+    <div class="panel">
+      <div id="endingMoment">---- / -- / -- · --:--:--</div>
+      <h2>愿来日仍有相逢</h2>
+      <p>
+        这一次，是真的毕业了。<br />
+        但我始终会记得，在那几年里，<br />
+        有一群人和我一起把热爱落到具体的事情里。<br />
+        愿你们各自奔赴山海，也愿来日相逢时，<br />
+        我们还能笑着说起：那几年，真好。
+      </p>
+      <div class="footer-small">For 那几年一起同行的你们 · From 金海</div>
+    </div>
+  </section>
+
+  <script>
+    const graduationDate = new Date(2026, 5, 24);
+    // 注意：JS 里月份从 0 开始，所以 5 表示 6 月
+
+    function pad(num) {
+      return String(num).padStart(2, '0');
+    }
+
+    function formatMoment(date, withSeconds = true) {
+      const y = date.getFullYear();
+      const m = pad(date.getMonth() + 1);
+      const d = pad(date.getDate());
+      const h = pad(date.getHours());
+      const min = pad(date.getMinutes());
+      const s = pad(date.getSeconds());
+
+      return withSeconds
+        ? `${y} / ${m} / ${d} · ${h}:${min}:${s}`
+        : `${y} / ${m} / ${d} · ${h}:${min}`;
+    }
+
+    function getYearsSinceGraduation(now) {
+      let years = now.getFullYear() - graduationDate.getFullYear();
+
+      const hasPassedThisYear =
+        now.getMonth() > graduationDate.getMonth() ||
+        (
+          now.getMonth() === graduationDate.getMonth() &&
+          now.getDate() >= graduationDate.getDate()
+        );
+
+      if (!hasPassedThisYear) {
+        years -= 1;
+      }
+
+      return Math.max(years, 0) + 1;
+    }
+
+    function updateMoment() {
+      const now = new Date();
+      const displayYear = getYearsSinceGraduation(now);
+
+      document.getElementById('graduationSubtitle').textContent =
+        `毕业后的第 ${displayYear} 年，我把这段写给那几年一起同行的你们的回忆，再次轻轻打开。`;
+
+      document.getElementById('moment').textContent = formatMoment(now, true);
+      document.getElementById('endingMoment').textContent = formatMoment(now, true);
+      document.getElementById('timelineMoment').textContent = formatMoment(now, false);
+    }
+
+    updateMoment();
+    setInterval(updateMoment, 1000);
+  </script>
+</body>
+</html>
